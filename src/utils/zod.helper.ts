@@ -1,4 +1,4 @@
-import Zod, { ZodType } from "zod";
+import Zod from "zod";
 import { ErrorMessages } from "../shared/errors/errorMessage";
 import { AppError } from "../shared/errors";
 import { ErrorStatusCode } from "../shared/errors/errorCode";

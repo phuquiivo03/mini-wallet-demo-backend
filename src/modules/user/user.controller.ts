@@ -29,13 +29,16 @@ export const getUser = async (
   try {
     const result = await UserService.getUser(req.params.id as string);
     if (!result) {
-      customExpress.response404(ErrorStatusCode.NOT_FOUND, {
+      return customExpress.response404(ErrorStatusCode.NOT_FOUND, {
         reason: "User not found",
       });
     }
-    return res.json({ data: result });
+    return customExpress.response200({ data: result });
   } catch (error) {
-    customExpress.response400(ErrorStatusCode.BAD_REQUEST, error as Error);
+    return customExpress.response400(
+      ErrorStatusCode.BAD_REQUEST,
+      error as Error,
+    );
   }
 };
 

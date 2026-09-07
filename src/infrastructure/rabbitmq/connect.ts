@@ -1,11 +1,12 @@
 import amqp from "amqplib";
 import { QueueName, RoutingKey } from "./constants";
+import { appConfig } from "../../config";
 
 var channel: amqp.Channel;
 
 export async function connectQueue() {
   if (channel) return channel as amqp.Channel;
-  const conn = await amqp.connect("amqp://localhost");
+  const conn = await amqp.connect(appConfig.rabbitmqUrl);
   channel = await conn.createChannel();
   channel.prefetch(1);
   // Exchange chính

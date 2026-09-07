@@ -30,6 +30,7 @@ const jwt: JWTEnv = {
 export const appConfig: AppConfig = {
   port: process.env.PORT || "3000",
   databaseUrl: process.env.DATABASE_URL || "",
+  rabbitmqUrl: process.env.RABBITMQ_URL || "",
   currencies: currencies,
   jwt,
   redis,

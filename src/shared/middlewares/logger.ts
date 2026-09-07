@@ -21,6 +21,7 @@ export function requestLogger(req: Request, res: Response, next: NextFunction) {
 
 export function requestIdMiddleware(
   req: Request,
+  // @ts-ignore
   res: Response,
   next: NextFunction,
 ) {

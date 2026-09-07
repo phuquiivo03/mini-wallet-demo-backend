@@ -20,7 +20,7 @@ export const getAccountBalance = async (
     }
     const balance = await EntryService.getBalanceByAccountId(accountId);
     const displayBalance = convertMoney(balance, account.currency);
-    customExpress.response200({
+    return customExpress.response200({
       balance: displayBalance,
     });
   } catch (error) {

@@ -49,7 +49,6 @@ export class CustomExpress implements IResponseMethods {
       code: errCode,
     };
     this.res.status(httpCode).json(resp);
-    return;
   }
 
   response200(data: any): void {

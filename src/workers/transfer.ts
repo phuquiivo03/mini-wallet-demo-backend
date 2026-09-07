@@ -1,5 +1,5 @@
 import { connectQueue } from "../infrastructure/rabbitmq/connect";
-import { QueueName, RoutingKey } from "../infrastructure/rabbitmq/constants";
+import { QueueName } from "../infrastructure/rabbitmq/constants";
 import { parseOrThrow } from "../utils";
 import { transferSchema } from "../modules/transaction/transaction.schema";
 import { Transfer } from "../modules/transaction/transaction.type";
@@ -21,7 +21,6 @@ import {
   getErrorStrategy,
   normalizeError,
 } from "../shared/errors/error.helper";
-import websocketGateway from "../websocket/gateway/websocket.gateway";
 import { sendTransactionNotification } from "./helper";
 
 export const transferWorker = async () => {
@@ -56,7 +55,7 @@ export const transferWorker = async () => {
       // if worker crash here, the job will be re-excute by the worker
       // if crash here, the job will be pending forever (not re-excute, not failed)
       await JobService.update(job.id, JobStatus.COMPLETED);
-      const random2 = Math.random(); // simulate error -> retry job
+      // const random2 = Math.random(); // simulate error -> retry job
       // if (random2 < 0.7) {
       //   console.log("Simulate error -> \nWorker Crashed!");
       //   process.exit(1);
@@ -83,12 +82,13 @@ async function handleError(
     console.error("Error in handleError", err.code, "message:", err.message);
 
     const strategy = getErrorStrategy(err.code);
-    await strategy({
-      channel,
-      msg,
-      data,
-      retryQueue: QueueName.TRANSFER_RETRY,
-    });
+    if (strategy)
+      await strategy({
+        channel,
+        msg,
+        data,
+        retryQueue: QueueName.TRANSFER_RETRY,
+      });
   }
 }
 

@@ -1,5 +1,3 @@
-import { Prisma } from "@prisma/client";
-
 export type FindManyOptions<T, Q> = {
   where: T;
   skip?: number;

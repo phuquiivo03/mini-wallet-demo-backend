@@ -1,5 +1,5 @@
 import prisma from "../../infrastructure/prisma/connect";
-import { CreateJobDTO, JobStatus, JobDTO } from "./job.dto";
+import { CreateJobDTO, JobStatus } from "./job.dto";
 import { Prisma } from "@prisma/client";
 import { ErrorMessages } from "../../shared/errors/errorMessage";
 import { jobSchema } from "./job.schema";
@@ -20,7 +20,7 @@ export class JobService {
 
       return parseOrThrow(jobSchema, createdJob);
     } catch (error) {
-      throw new Error(ErrorMessages.FAILED_TO_CREATE_JOB, { cause: error });
+      throw new Error(ErrorMessages.FAILED_TO_CREATE_JOB);
     }
   }
   async find(id: string): Promise<Job> {
@@ -44,8 +44,8 @@ export class JobService {
 
       return parseOrThrow(jobSchema, createdJob);
     } catch (error) {
-      console.error("Error in createAnndPublish", error.message);
-      throw new Error(ErrorMessages.FAILED_TO_CREATE_JOB, { cause: error });
+      console.error("Error in createAnndPublish", (error as Error).message);
+      throw new Error(ErrorMessages.FAILED_TO_CREATE_JOB);
     }
   }
 
@@ -56,10 +56,9 @@ export class JobService {
       });
       return parseOrThrow(jobSchema, result);
     } catch (error) {
-      if (error.message === ErrorMessages.FAILED_TO_PARSE_DATA) throw error;
-      throw new Error(ErrorMessages.FAILED_TO_GET_JOB, {
-        cause: error.message,
-      });
+      if ((error as Error).message === ErrorMessages.FAILED_TO_PARSE_DATA)
+        throw error;
+      throw new Error(ErrorMessages.FAILED_TO_GET_JOB);
     }
   }
 

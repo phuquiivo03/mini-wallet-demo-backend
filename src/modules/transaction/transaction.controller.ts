@@ -1,4 +1,4 @@
-import { Request, Response, RequestHandler, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import { Transfer } from "./transaction.type";
 import JobService from "../job/job.service";
 import TransactionHelper from "./transaction.helper";

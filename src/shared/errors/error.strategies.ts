@@ -1,7 +1,8 @@
-import { ErrorCodeValues, ErrorStrategy, WorkerContext } from "./error.type";
+import { ErrorStrategy } from "./error.type";
 import { handleCancelJob, handleRetry } from "../../workers/helper";
 import { ErrorCodes, ErrorStrategyCodes } from "./errorCode";
 import { ErrorStrategyValues } from "./error.type";
+import { Message } from "amqplib";
 
 export const errorStrategies: Record<ErrorStrategyValues, ErrorStrategy> = {
   [ErrorStrategyCodes.RETRY_JOB]: async ({ channel, msg, retryQueue }) => {
@@ -10,13 +11,13 @@ export const errorStrategies: Record<ErrorStrategyValues, ErrorStrategy> = {
   [ErrorStrategyCodes.CANCEL_JOB]: async ({ channel, msg, data }) => {
     await handleCancelJob(data.id, msg, channel);
   },
-  [ErrorStrategyCodes.UNKNOWN]: async ({ channel, msg, retryQueue }) => {
+  [ErrorStrategyCodes.UNKNOWN]: async ({ msg }: { msg: Message }) => {
     //
     console.error("Unknown error", msg.content.toString());
   },
 };
 
-export const strategiesDictionary: Record<string, ErrorStrategy> = {
+export const strategiesDictionary: Record<string, ErrorStrategy | undefined> = {
   [ErrorCodes.DEAD_LOCK]: errorStrategies[ErrorStrategyCodes.RETRY_JOB],
   [ErrorCodes.FAILED_TO_CREATE_ENTRY]:
     errorStrategies[ErrorStrategyCodes.RETRY_JOB],

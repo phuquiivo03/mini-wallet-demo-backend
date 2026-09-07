@@ -1,6 +1,5 @@
+import { ErrorCodes, ErrorMessages } from "../../shared/errors";
 import { AppError } from "../../shared/errors/Error";
-import { ErrorCodes } from "../../shared/errors/error-code";
-import { ErrorMessages } from "../../shared/errors/error-message";
 import { JobStatus } from "./job.dto";
 import { Job } from "./job.type";
 

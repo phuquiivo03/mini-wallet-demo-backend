@@ -1,5 +1,4 @@
 // worker/worker.ts
-import { connectQueue } from "../infrastructure/rabbitmq/connect";
 import { QueueName, Queue } from "../infrastructure/rabbitmq/constants";
 import JobService from "../modules/job/job.service";
 import { JobStatus } from "../modules/job/job.dto";

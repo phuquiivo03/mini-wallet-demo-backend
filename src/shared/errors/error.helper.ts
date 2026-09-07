@@ -1,11 +1,7 @@
 import { AppError } from "./Error";
 import { ErrorCodes, ErrorStrategyCodes } from "./errorCode";
 import { ErrorMessages } from "./errorMessage";
-import {
-  ErrorCodeValues,
-  ErrorStrategy,
-  ErrorStrategyValues,
-} from "./error.type";
+import { ErrorCodeValues, ErrorStrategy } from "./error.type";
 import { errorStrategies, strategiesDictionary } from "./error.strategies";
 export function normalizeError(err: any): AppError {
   // Prisma deadlock
@@ -22,7 +18,9 @@ export function normalizeError(err: any): AppError {
   return new AppError(err.code || "UNKNOWN", err.message, 500, false);
 }
 
-export function getErrorStrategy(code: ErrorCodeValues): ErrorStrategy {
+export function getErrorStrategy(
+  code: ErrorCodeValues,
+): ErrorStrategy | undefined {
   const strategy = strategiesDictionary[code];
   if (strategy) {
     return strategy;

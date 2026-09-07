@@ -19,8 +19,8 @@ class TransactionService {
     return parseOrThrow<Transaction>(TransactionSchema, transaction);
   }
 
-  async transfer(data: Transfer) {
-    const transaction = await prisma.transaction.create({
+  async transfer() {
+    await prisma.transaction.create({
       data: {
         type: "transfer",
         status: "pending",

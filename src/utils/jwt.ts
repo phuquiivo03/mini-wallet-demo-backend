@@ -1,6 +1,5 @@
 import jwt, { TokenExpiredError } from "jsonwebtoken";
 import { appConfig } from "../config/app.config";
-import { ZodSchema } from "zod/v3";
 import { parseOrThrow } from "./zod.helper";
 import Zod from "zod";
 import { AppError, ErrorCodes, ErrorMessages } from "../shared/errors";

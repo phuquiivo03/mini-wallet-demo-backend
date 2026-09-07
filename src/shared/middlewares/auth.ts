@@ -1,4 +1,4 @@
-import { NextFunction, Request, RequestHandler, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { AppError, ErrorCodes, ErrorMessages } from "../errors";
 import { ErrorStatusCode } from "../errors/errorCode";
 import { RequestUser } from "../../modules/user/user.type";
@@ -16,6 +16,7 @@ declare global {
 
 export const authMiddleware = async (
   req: Request,
+  //@ts-ignore
   res: Response,
   next: NextFunction,
 ) => {

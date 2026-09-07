@@ -4,7 +4,7 @@ export type AppConfig = {
   port: string;
   databaseUrl: string;
   currencies: Record<CurrencyEnum, Currency>;
-
+  rabbitmqUrl: string;
   jwt: JWTEnv;
   redis: RedisConfig;
 };
