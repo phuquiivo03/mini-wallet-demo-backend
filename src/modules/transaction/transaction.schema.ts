@@ -39,6 +39,31 @@ export const transferSchema = z.object({
     .optional(),
 });
 
+export const transferRequestSchema = z.object({
+  toUserId: z.string({
+    error: requiredOrInvalid(
+      ErrorMessages.TRANSFER_TO_USER_ID_REQUIRED,
+      ErrorMessages.TRANSFER_TO_USER_ID_INVALID,
+    ),
+  }),
+  amount: z.number({
+    error: requiredOrInvalid(
+      ErrorMessages.TRANSFER_AMOUNT_REQUIRED,
+      ErrorMessages.TRANSFER_AMOUNT_INVALID,
+    ),
+  }),
+  currency: z
+    .string({
+      error: ErrorMessages.TRANSFER_CURRENCY_INVALID,
+    })
+    .default("VND"),
+  message: z
+    .string({
+      error: ErrorMessages.TRANSFER_MESSAGE_INVALID,
+    })
+    .optional(),
+});
+
 export const TransactionSchema = z.object({
   id: z.string({
     error: requiredOrInvalid(

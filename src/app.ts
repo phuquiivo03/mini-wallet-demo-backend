@@ -5,6 +5,7 @@ import "./workers";
 import { requestIdMiddleware, requestLogger } from "./shared/middlewares";
 import cors from "cors";
 import { errorHandler } from "./shared/middlewares/errorHandler";
+import { setupSwagger } from "./docs/swagger";
 
 const app = express();
 app.use(express.json());
@@ -18,6 +19,7 @@ app.use(
 );
 app.use(requestIdMiddleware);
 app.use(requestLogger);
+setupSwagger(app);
 app.use(router);
 app.use(errorHandler);
 export default app;
