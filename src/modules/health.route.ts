@@ -1,11 +1,9 @@
-import { CustomExpress } from "../pkg/app/response";
-import { Router, Response, Request, NextFunction } from "express";
+import { Router } from "express";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response, next: NextFunction) => {
-  const customExpress = new CustomExpress(req, res, next);
-  return customExpress.response200({
+router.get("/", (req, res, next) => {
+  return res.json({
     status: "true",
     message: "Server is live!",
   });

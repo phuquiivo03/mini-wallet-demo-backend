@@ -10,12 +10,15 @@ export const getAccountBalance = async (
 ) => {
   try {
     const customExpress = new CustomExpress(req, res, next);
-    const accountId = req.user?.id as string;
-    const account = await accountService.findByUserId(accountId);
+    const accountId = req.params.accountId as string;
+    if (!accountId) {
+      throw new Error("User ID is required!");
+    }
+    const account = await accountService.findById(accountId);
     if (!account) {
       throw new Error("Account not found!");
     }
-    const balance = await EntryService.getBalanceByAccountId(account.id);
+    const balance = await EntryService.getBalanceByAccountId(accountId);
     const displayBalance = convertMoney(balance, account.currency);
     return customExpress.response200({
       balance: displayBalance,

@@ -9,7 +9,7 @@ import { AppError, BadRequestError } from "../../shared/errors/Error";
 
 class TransactionHelper {
   async validTRansfer(
-    data: Transfer & { fromUserId: string },
+    data: Transfer,
   ): Promise<{ senderAccount: Account; receiverAccount: Account }> {
     try {
       const senderAccount = await AccountService.findByUserId(data.fromUserId);

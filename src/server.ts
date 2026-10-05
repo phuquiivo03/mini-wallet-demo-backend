@@ -10,6 +10,5 @@ setupWebSocket(server);
 
 server.listen(PORT, () => {
   console.log(`HTTP server running on port ${PORT}`);
-  console.log(`API docs available at http://localhost:${PORT}/api-docs`);
   console.log(`WebSocket server running on ws://localhost:${PORT}`);
 });

@@ -32,7 +32,7 @@ COPY prisma ./prisma
 COPY src ./src
 
 # Generate Prisma Client
-RUN DATABASE_URL="postgresql://neondb_owner:npg_njzVwp1t3fyx@ep-still-dream-a121xivk.ap-southeast-1.aws.neon.tech/neondb?sslmode=verify-full&channel_binding=require" \
+RUN DATABASE_URL="" \
     npx prisma generate
 
 # Compile TypeScript

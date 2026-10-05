@@ -16,12 +16,11 @@ export const transfer = async (
 ) => {
   const customExpress = new CustomExpress(req, res, next);
   const data: Transfer = req.body;
-  const fromUserId = req.user?.id as string;
   // check sender balance
-  await TransactionHelper.validTRansfer({ ...data, fromUserId });
+  await TransactionHelper.validTRansfer(data);
   const job = await JobService.createAnndPublish({
     action: MQActions.TRANSFER,
-    data: { ...(data as unknown as JSON), fromUserId } as unknown as JSON,
+    data: data as unknown as JSON,
   });
   customExpress.response200(job);
 };
